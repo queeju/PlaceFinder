@@ -10,8 +10,8 @@ import (
 
 func main() {
 
-	fAuth := flag.Bool("a", false, "Use authorization to get recommendations")
 	fSetup := flag.Bool("s", false, "Add data into the database")
+	fAuth := flag.Bool("a", false, "Use authorization to get recommendations")
 	flag.Parse()
 
 	// Set up store
@@ -20,7 +20,7 @@ func main() {
 	if *fSetup {
 		store.CreateIndex("places")
 		store.ApplyMapping()
-		store.AddData("../materials/data.csv")
+		store.AddData("../../dataset/data.csv")
 	}
 
 	// Create server on port 8888

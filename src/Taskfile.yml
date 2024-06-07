@@ -1,0 +1,48 @@
+version: '3'
+
+vars:
+  app_name: "PlaceFinder"
+  app_version: "1.0.0"
+  main_pkg: "./cmd/main.go"
+  es_dir: "/path/to/elasticsearch/dir"
+
+
+tasks:
+  default:
+    desc: "Default task"
+    cmds:
+      - task: build
+
+  build:
+    desc: "Build the application"
+    cmds:
+      - "go build -o {{.app_name}} {{.main_pkg}}"
+
+  run:
+    desc: "Run the application"
+    cmds:
+      - "./{{.app_name}}"
+
+  clean:
+    desc: "Clean the build files"
+    cmds:
+      - "rm -f {{.app_name}}"
+
+  build-run:
+    desc: "Build and run the application"
+    cmds:
+      - task: build
+      - task: run
+
+  start-es:
+    desc: "Start Elasticsearch"
+    cmds:
+      - "echo 'Starting Elasticsearch...'"
+      - "{{.es_dir}}/bin/elasticsearch &"
+
+  all:
+    desc: "Clean, build, and run the application"
+    cmds:
+      - task: clean
+      - task: build
+      - task: run
